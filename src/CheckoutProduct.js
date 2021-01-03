@@ -1,33 +1,29 @@
 import React from "react";
-import "./Product.scss";
 import { useStateValue } from "./StateProvider";
+import "./CheckoutProduct.scss";
 
-function Product({ id, title, image, price, rating }) {
-  const cssPrefix = "product";
+function CheckoutProduct({ id, image, title, rating, price }) {
+  const cssPrefix = "checkout-product";
 
   const [state, dispatch] = useStateValue();
 
-  const addToCart = () => {
+  const removeFromCart = () => {
     dispatch({
-      type: "ADD_TO_CART",
-      item: {
-        id: id,
-        title: title,
-        image: image,
-        price: price,
-        rating: rating,
-      },
+      type: "REMOVE_FROM_CART",
+      id: id,
     });
   };
-
   return (
     <div className={cssPrefix}>
+      <img className={`${cssPrefix}__image`} src={image} alt="" />
+
       <div className={`${cssPrefix}__info`}>
-        <p>{title}</p>
+        <p className={`${cssPrefix}__title`}>{title}</p>
         <p className={`${cssPrefix}__price`}>
           <small>Rs.</small>
           <strong>{price}</strong>
         </p>
+
         <div className={`${cssPrefix}__rating`}>
           {Array(rating)
             .fill()
@@ -35,12 +31,11 @@ function Product({ id, title, image, price, rating }) {
               return <p key={i}>⭐️</p>;
             })}
         </div>
-      </div>
 
-      <img src={image} alt="" />
-      <button onClick={addToCart}>Add to Cart</button>
+        <button onClick={removeFromCart}>Remove from cart</button>
+      </div>
     </div>
   );
 }
 
-export default Product;
+export default CheckoutProduct;
