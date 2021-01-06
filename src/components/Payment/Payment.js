@@ -1,13 +1,13 @@
 import "./Payment.scss";
 import { useState, useEffect } from "react";
-import { useStateValue } from "./StateProvider";
-import CheckoutProduct from "./CheckoutProduct";
+import { useStateValue } from "../../store/StateProvider";
+import CheckoutProduct from "../CheckoutProduct/CheckoutProduct";
 import { Link, useHistory } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
-import { getCartTotal } from "./reducer";
+import { getCartTotal } from "../../store/reducer";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import instance from "./axios";
-import { db } from "./firebase";
+import { createPayment } from "../../api-service/api-service";
+import { db } from "../../firebase";
 
 function Payment() {
   const cssPrefix = "payment";
@@ -27,14 +27,16 @@ function Payment() {
     // generate the special stripe secret which allows us to charge a customer
 
     const getClientSecret = async () => {
-      const response = await instance({
-        method: "post",
-        url: `/payments/create?total=${getCartTotal(cart) * 100}`,
-      });
+      const response = await createPayment(getCartTotal(cart) * 100);
+      // instance({
+      //   method: "post",
+      //   url: `/payments/create?total=${getCartTotal(cart) * 100}`,
+      // });
       setClientSecret(response.data.clientSecret);
     };
 
     getClientSecret();
+    // eslint-disable-next-line
   }, []);
 
   console.log("the secret is >>>", clientSecret);
@@ -43,7 +45,7 @@ function Payment() {
     e.preventDefault();
     setProcessing(true);
 
-    const payload = await stripe
+    await stripe
       .confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),

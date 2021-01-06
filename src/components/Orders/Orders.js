@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { db } from "./firebase";
-import { useStateValue } from "./StateProvider";
-import Order from "./Order";
+import { db } from "../../firebase";
+import { useStateValue } from "../../store/StateProvider";
+import Order from "../Order/Order";
 import "./Orders.scss";
 
 function Orders() {
   const cssPrefix = "orders";
   const [orders, setOrders] = useState([]);
+  // eslint-disable-next-line
   const [{ cart, user }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -33,8 +34,8 @@ function Orders() {
       <h1>Your Orders</h1>
 
       <div className={`${cssPrefix}__order`}>
-        {orders?.map((order) => (
-          <Order order={order} />
+        {orders?.map((order, i) => (
+          <Order key={i} order={order} />
         ))}
       </div>
     </div>

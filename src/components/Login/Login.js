@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./Login.scss";
-import logo from "./amazon-logo-dark.png";
+import logo from "../../images/amazon-logo-dark.png";
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "./firebase";
+import { auth } from "../../firebase";
 
 function Login() {
   const cssPrefix = "login";

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.scss";
-import Header from "./Header";
-import Home from "./Home";
-import Checkout from "./Checkout";
-import Login from "./Login";
-import Payment from "./Payment";
-import Orders from "./Orders";
+import Header from "./components//Header/Header";
+import Home from "./components/Home/Home";
+import Checkout from "./components/Checkout/Checkout";
+import Login from "./components/Login/Login";
+import Payment from "./components/Payment/Payment";
+import Orders from "./components/Orders/Orders";
 import { auth } from "./firebase";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "./store/StateProvider";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -17,7 +17,8 @@ const promise = loadStripe(
 );
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  // eslint-disable-next-line
+  const [{ cart, user }, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -35,6 +36,7 @@ function App() {
         });
       }
     });
+    // eslint-disable-next-line
   }, []);
   return (
     <Router>

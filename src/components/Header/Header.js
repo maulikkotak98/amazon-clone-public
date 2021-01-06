@@ -1,10 +1,10 @@
-import logo from "./amazon-logo.png";
+import logo from "../../images/amazon-logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 import "./Header.scss";
-import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
+import { useStateValue } from "../../store/StateProvider";
+import { auth } from "../../firebase";
 
 function Header() {
   const cssPrefix = "header";

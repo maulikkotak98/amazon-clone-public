@@ -1,10 +1,10 @@
 import React from "react";
-import { useStateValue } from "./StateProvider";
+import { useStateValue } from "../../store/StateProvider";
 import "./CheckoutProduct.scss";
 
 function CheckoutProduct({ id, image, title, rating, price, hideButton }) {
   const cssPrefix = "checkout-product";
-
+  // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
 
   const removeFromCart = () => {

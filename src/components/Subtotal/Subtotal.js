@@ -1,13 +1,14 @@
 import "./Subtotal.scss";
 import CurrencyFormat from "react-currency-format";
-import { useStateValue } from "./StateProvider";
-import { getCartTotal } from "./reducer";
+import { useStateValue } from "../../store/StateProvider";
+import { getCartTotal } from "../../store/reducer";
 import { useHistory } from "react-router-dom";
 
 function Subtotal() {
   const cssPrefix = "subtotal";
 
   const history = useHistory();
+  // eslint-disable-next-line
   const [{ cart }, dispatch] = useStateValue();
 
   return (

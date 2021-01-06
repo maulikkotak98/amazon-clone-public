@@ -1,11 +1,11 @@
 import "./Checkout.scss";
-import Subtotal from "./Subtotal";
-import CheckoutProduct from "./CheckoutProduct";
-import { useStateValue } from "./StateProvider";
+import Subtotal from "../Subtotal/Subtotal";
+import CheckoutProduct from "../CheckoutProduct/CheckoutProduct";
+import { useStateValue } from "../../store/StateProvider";
 
 function Checkout() {
   const cssPrefix = "checkout";
-
+  // eslint-disable-next-line
   const [{ cart }, dispatch] = useStateValue();
 
   return (
